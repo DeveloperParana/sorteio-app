@@ -1,21 +1,57 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { SlotMachineAnimation } from "./SlotMachineAnimation";
 import type { Participant, Prize } from "@/lib/types";
+
+const RAFFLE_KEY = "sorteio-app:raffle";
+
+interface RaffleState {
+  currentPrizeIndex: number;
+  remaining: Participant[];
+  results: Prize[];
+}
 
 interface StepRaffleProps {
   participants: Participant[];
   prizes: Prize[];
   displayField: string;
+  onNewRaffle: () => void;
 }
 
-export function StepRaffle({ participants, prizes, displayField }: StepRaffleProps) {
+export function StepRaffle({ participants, prizes, displayField, onNewRaffle }: StepRaffleProps) {
   const [currentPrizeIndex, setCurrentPrizeIndex] = useState(0);
   const [remaining, setRemaining] = useState<Participant[]>(participants);
   const [results, setResults] = useState<Prize[]>([]);
   const [spinning, setSpinning] = useState(false);
   const [showResult, setShowResult] = useState(false);
+  const hydrated = useRef(false);
+
+  // Restore state from localStorage
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(RAFFLE_KEY);
+      if (stored) {
+        const state: RaffleState = JSON.parse(stored);
+        setCurrentPrizeIndex(state.currentPrizeIndex);
+        setRemaining(state.remaining);
+        setResults(state.results);
+        if (state.results.length > 0 && state.currentPrizeIndex < prizes.length) {
+          setShowResult(true);
+        }
+      }
+    } catch { /* ignore */ }
+    hydrated.current = true;
+  }, [prizes.length]);
+
+  // Save state to localStorage on changes
+  useEffect(() => {
+    if (!hydrated.current) return;
+    try {
+      const state: RaffleState = { currentPrizeIndex, remaining, results };
+      localStorage.setItem(RAFFLE_KEY, JSON.stringify(state));
+    } catch { /* ignore */ }
+  }, [currentPrizeIndex, remaining, results]);
 
   const currentPrize = prizes[currentPrizeIndex];
   const isFinished = currentPrizeIndex >= prizes.length;
@@ -41,6 +77,11 @@ export function StepRaffle({ participants, prizes, displayField }: StepRafflePro
     setShowResult(false);
   };
 
+  const handleNewRaffle = () => {
+    try { localStorage.removeItem(RAFFLE_KEY); } catch { /* ignore */ }
+    onNewRaffle();
+  };
+
   if (isFinished) {
     return (
       <div className="space-y-6">
@@ -64,6 +105,14 @@ export function StepRaffle({ participants, prizes, displayField }: StepRafflePro
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="flex justify-center pt-4">
+          <button
+            onClick={handleNewRaffle}
+            className="px-6 py-2 border-2 border-green-600 text-green-700 rounded-xl hover:bg-green-50 transition-colors font-medium"
+          >
+            🔄 Novo Sorteio
+          </button>
         </div>
       </div>
     );

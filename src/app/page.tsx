@@ -8,16 +8,31 @@ import { StepImport } from "@/components/StepImport";
 import { StepSelectFields } from "@/components/StepSelectFields";
 import { StepPrizes } from "@/components/StepPrizes";
 import { StepRaffle } from "@/components/StepRaffle";
+import { usePersistedState, clearPersistedState } from "@/lib/use-persisted-state";
 import type { Participant, Prize } from "@/lib/types";
 
 export default function Home() {
-  const [started, setStarted] = useState(false);
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-  const [headers, setHeaders] = useState<string[]>([]);
-  const [rawData, setRawData] = useState<Record<string, string>[]>([]);
-  const [selectedFields, setSelectedFields] = useState<string[]>([]);
-  const [participants, setParticipants] = useState<Participant[]>([]);
-  const [prizes, setPrizes] = useState<Prize[]>([]);
+  const [started, setStarted] = usePersistedState("started", false);
+  const [step, setStep] = usePersistedState<1 | 2 | 3 | 4>("step", 1);
+  const [headers, setHeaders] = usePersistedState<string[]>("headers", []);
+  const [rawData, setRawData] = usePersistedState<Record<string, string>[]>("rawData", []);
+  const [selectedFields, setSelectedFields] = usePersistedState<string[]>("selectedFields", []);
+  const [participants, setParticipants] = usePersistedState<Participant[]>("participants", []);
+  const [prizes, setPrizes] = usePersistedState<Prize[]>("prizes", []);
+  const [mounted, setMounted] = useState(false);
+
+  // Wait for hydration to avoid flash
+  if (!mounted) {
+    // Use a timeout-free approach: render nothing on first frame, then mount
+    if (typeof window !== "undefined") {
+      setTimeout(() => setMounted(true), 0);
+    }
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
+        <Image src="/devparana.svg" alt="DevParaná" width={80} height={80} className="animate-pulse" />
+      </div>
+    );
+  }
 
   const handleDataLoaded = (h: string[], data: Record<string, string>[]) => {
     setHeaders(h);
@@ -41,6 +56,17 @@ export default function Home() {
   const handlePrizesCreated = (p: Prize[]) => {
     setPrizes(p);
     setStep(4);
+  };
+
+  const handleNewRaffle = () => {
+    clearPersistedState();
+    setStarted(false);
+    setStep(1);
+    setHeaders([]);
+    setRawData([]);
+    setSelectedFields([]);
+    setParticipants([]);
+    setPrizes([]);
   };
 
   if (!started) {
@@ -78,6 +104,7 @@ export default function Home() {
               participants={participants}
               prizes={prizes}
               displayField={selectedFields[0]}
+              onNewRaffle={handleNewRaffle}
             />
           )}
         </Wizard>
