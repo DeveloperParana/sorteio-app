@@ -77,7 +77,7 @@ describe("StepSelectFields", () => {
     await user.click(screen.getByText("nome"));
     await user.click(screen.getByText("email"));
     await user.click(screen.getByText("Próximo →"));
-    expect(onFieldsSelected).toHaveBeenCalledWith(["nome", "email"]);
+    expect(onFieldsSelected).toHaveBeenCalledWith(["nome", "email"], expect.any(String));
   });
 
   it("calls onBack when back button is clicked", async () => {

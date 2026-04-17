@@ -9,6 +9,7 @@ import { StepSelectFields } from "@/components/StepSelectFields";
 import { StepPrizes } from "@/components/StepPrizes";
 import { StepRaffle } from "@/components/StepRaffle";
 import { usePersistedState, clearPersistedState } from "@/lib/use-persisted-state";
+import { dedup } from "@/lib/dedup";
 import type { Participant, Prize } from "@/lib/types";
 
 export default function Home() {
@@ -40,15 +41,21 @@ export default function Home() {
     setStep(2);
   };
 
-  const handleFieldsSelected = (fields: string[]) => {
+  const handleFieldsSelected = (fields: string[], dedupField: string | null) => {
     setSelectedFields(fields);
-    const filtered = rawData.map((row) => {
+    let filtered = rawData.map((row) => {
       const obj: Record<string, string> = {};
       fields.forEach((f) => {
         obj[f] = row[f];
       });
       return obj;
     });
+
+    if (dedupField) {
+      const { unique } = dedup(filtered, dedupField);
+      filtered = unique;
+    }
+
     setParticipants(filtered);
     setStep(3);
   };
