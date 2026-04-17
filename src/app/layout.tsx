@@ -15,6 +15,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Dev Paraná — Sorteio",
   description: "Sorteio de prêmios do Dev Paraná. Importe participantes e sorteie ganhadores!",
+  openGraph: {
+    title: "Dev Paraná — Sorteio",
+    description: "Sorteio de prêmios do Dev Paraná. Importe participantes e sorteie ganhadores!",
+    siteName: "Dev Paraná Sorteio",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Dev Paraná — Sorteio",
+    description: "Sorteio de prêmios do Dev Paraná",
+  },
 };
 
 export default function RootLayout({
@@ -24,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
