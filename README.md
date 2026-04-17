@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎯 Sorteio App
 
-## Getting Started
+App web para realizar sorteios a partir de dados importados de CSV (Google Forms/Sheets). Importe participantes, selecione campos, cadastre prêmios e sorteie ganhadores com animação!
 
-First, run the development server:
+## ✨ Funcionalidades
+
+- **📥 Importar CSV** — upload de arquivo ou URL pública do Google Sheets
+- **✅ Selecionar campos** — escolha quais colunas manter (ex: nome, email)
+- **🏆 Cadastrar prêmios** — crie e reordene a lista de prêmios
+- **🎲 Sortear** — animação tipo slot machine com nomes girando antes de revelar o ganhador
+- Cada pessoa só ganha **uma vez** (removida do pool após sorteio)
+- Resumo completo ao final: prêmio → ganhador
+
+## 🚀 Como usar
 
 ```bash
+# Instalar dependências
+npm install
+
+# Rodar em desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build de produção
+npm run build
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000) no navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📋 Fluxo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Importar** → Suba um `.csv` ou cole a URL de uma planilha Google (publicada na web)
+2. **Campos** → Selecione quais colunas quer manter
+3. **Prêmios** → Cadastre os prêmios na ordem do sorteio
+4. **Sortear** → Clique em "Sortear!" e veja a animação revelar o ganhador
 
-## Learn More
+## 🛠️ Stack
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js 15](https://nextjs.org/) (App Router)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Papa Parse](https://www.papaparse.com/) (parsing de CSV)
+- TypeScript
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📂 Estrutura
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── page.tsx                 # Página principal (wizard)
+│   └── api/fetch-csv/route.ts   # Proxy para Google Sheets
+├── components/
+│   ├── Wizard.tsx               # Barra de progresso + container
+│   ├── StepImport.tsx           # Step 1: upload/URL
+│   ├── StepSelectFields.tsx     # Step 2: seleção de campos
+│   ├── StepPrizes.tsx           # Step 3: cadastro de prêmios
+│   ├── StepRaffle.tsx           # Step 4: sorteio + resultados
+│   ├── FileDropZone.tsx         # Drag & drop de arquivo
+│   ├── DataPreview.tsx          # Preview em tabela
+│   └── SlotMachineAnimation.tsx # Animação do sorteio
+└── lib/
+    ├── types.ts                 # Tipos TypeScript
+    ├── csv-parser.ts            # Parsing de CSV
+    └── sheets-url.ts            # Conversão de URL do Sheets
+```
 
-## Deploy on Vercel
+## 🧪 Testes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm test
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Licença
+
+MIT
