@@ -80,6 +80,7 @@ export function StepRaffle({ participants, prizes, displayField }: StepRafflePro
       </div>
 
       <SlotMachineAnimation
+        key={currentPrizeIndex}
         participants={remaining}
         displayField={displayField}
         onWinnerSelected={handleWinnerSelected}
