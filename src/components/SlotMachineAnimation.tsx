@@ -72,7 +72,7 @@ export function SlotMachineAnimation({ participants, displayField, onWinnerSelec
       <div
         className={`text-4xl font-bold py-8 px-4 rounded-xl transition-all duration-300 ${
           showWinner
-            ? "text-indigo-600 bg-indigo-50 scale-110 border-2 border-indigo-300"
+            ? "text-green-600 bg-green-50 scale-110 border-2 border-green-300"
             : "text-gray-700 bg-gray-50"
         } ${isAnimating ? "animate-pulse" : ""}`}
       >

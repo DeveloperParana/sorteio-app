@@ -19,9 +19,9 @@ export function Wizard({ currentStep, children }: WizardProps) {
               <div
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   isActive
-                    ? "bg-indigo-600 text-white"
+                    ? "bg-green-600 text-white"
                     : isDone
-                    ? "bg-indigo-100 text-indigo-700"
+                    ? "bg-green-100 text-green-700"
                     : "bg-gray-100 text-gray-400"
                 }`}
               >
@@ -33,7 +33,7 @@ export function Wizard({ currentStep, children }: WizardProps) {
               {i < STEP_LABELS.length - 1 && (
                 <div
                   className={`w-8 h-0.5 ${
-                    isDone ? "bg-indigo-300" : "bg-gray-200"
+                    isDone ? "bg-green-300" : "bg-gray-200"
                   }`}
                 />
               )}

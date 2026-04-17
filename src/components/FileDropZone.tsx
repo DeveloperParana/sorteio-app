@@ -46,8 +46,8 @@ export function FileDropZone({ onFileSelected }: FileDropZoneProps) {
       onDrop={handleDrop}
       className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer ${
         isDragging
-          ? "border-indigo-500 bg-indigo-50"
-          : "border-gray-300 hover:border-indigo-400 hover:bg-indigo-50/50"
+          ? "border-green-500 bg-green-50"
+          : "border-gray-300 hover:border-green-400 hover:bg-green-50/50"
       }`}
     >
       <div className="text-4xl mb-3">📄</div>
@@ -55,7 +55,7 @@ export function FileDropZone({ onFileSelected }: FileDropZoneProps) {
         Arraste um arquivo <strong>.csv</strong> aqui
       </p>
       <p className="text-gray-400 text-sm mb-4">ou</p>
-      <label className="inline-block px-4 py-2 bg-indigo-600 text-white rounded-lg cursor-pointer hover:bg-indigo-700 transition-colors">
+      <label className="inline-block px-4 py-2 bg-green-600 text-white rounded-lg cursor-pointer hover:bg-green-700 transition-colors">
         Escolher arquivo
         <input type="file" accept=".csv" onChange={handleFileInput} className="hidden" />
       </label>

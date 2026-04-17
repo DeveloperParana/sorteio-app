@@ -49,12 +49,12 @@ export function StepPrizes({ participantCount, onPrizesCreated, onBack }: StepPr
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Nome do prêmio..."
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
         />
         <button
           onClick={addPrize}
           disabled={!input.trim()}
-          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
         >
           Adicionar
         </button>
@@ -64,7 +64,7 @@ export function StepPrizes({ participantCount, onPrizesCreated, onBack }: StepPr
         <ul className="space-y-2">
           {prizes.map((prize, i) => (
             <li key={prize.id} className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-4 py-2">
-              <span className="text-indigo-600 font-bold text-sm w-6">{i + 1}.</span>
+              <span className="text-green-600 font-bold text-sm w-6">{i + 1}.</span>
               <span className="flex-1 text-gray-800">{prize.name}</span>
               <button onClick={() => movePrize(i, -1)} disabled={i === 0} className="text-gray-400 hover:text-gray-600 disabled:opacity-30 text-lg" title="Mover para cima">↑</button>
               <button onClick={() => movePrize(i, 1)} disabled={i === prizes.length - 1} className="text-gray-400 hover:text-gray-600 disabled:opacity-30 text-lg" title="Mover para baixo">↓</button>
@@ -89,7 +89,7 @@ export function StepPrizes({ participantCount, onPrizesCreated, onBack }: StepPr
         <button
           onClick={() => onPrizesCreated(prizes)}
           disabled={prizes.length === 0}
-          className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+          className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
         >
           Iniciar Sorteio →
         </button>

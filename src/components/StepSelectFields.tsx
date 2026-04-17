@@ -39,7 +39,7 @@ export function StepSelectFields({ headers, data, onFieldsSelected, onBack }: St
             onClick={() => toggle(h)}
             className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
               selected.has(h)
-                ? "bg-indigo-600 text-white"
+                ? "bg-green-600 text-white"
                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
             }`}
           >
@@ -57,7 +57,7 @@ export function StepSelectFields({ headers, data, onFieldsSelected, onBack }: St
         <button
           onClick={() => onFieldsSelected(selectedArray)}
           disabled={selectedArray.length === 0}
-          className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+          className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
         >
           Próximo →
         </button>

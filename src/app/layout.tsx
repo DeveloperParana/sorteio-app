@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sorteio App",
-  description: "App de sorteio com CSV — importe dados, crie prêmios, sorteie ganhadores!",
+  title: "Dev Paraná — Sorteio",
+  description: "Sorteio de prêmios do Dev Paraná. Importe participantes e sorteie ganhadores!",
 };
 
 export default function RootLayout({

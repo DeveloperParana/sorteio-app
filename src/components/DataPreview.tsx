@@ -12,10 +12,10 @@ export function DataPreview({ headers, data, maxRows = 5 }: DataPreviewProps) {
   return (
     <div className="overflow-x-auto rounded-lg border border-gray-200">
       <table className="min-w-full text-sm">
-        <thead className="bg-indigo-50">
+        <thead className="bg-green-50">
           <tr>
             {headers.map((h) => (
-              <th key={h} className="px-4 py-2 text-left font-semibold text-indigo-900">{h}</th>
+              <th key={h} className="px-4 py-2 text-left font-semibold text-green-900">{h}</th>
             ))}
           </tr>
         </thead>

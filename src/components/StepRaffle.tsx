@@ -47,10 +47,10 @@ export function StepRaffle({ participants, prizes, displayField }: StepRafflePro
         <h2 className="text-xl font-semibold text-gray-800 text-center">🎊 Sorteio Completo!</h2>
         <div className="overflow-x-auto rounded-lg border border-gray-200">
           <table className="min-w-full text-sm">
-            <thead className="bg-indigo-50">
+            <thead className="bg-green-50">
               <tr>
-                <th className="px-4 py-3 text-left font-semibold text-indigo-900">Prêmio</th>
-                <th className="px-4 py-3 text-left font-semibold text-indigo-900">Ganhador</th>
+                <th className="px-4 py-3 text-left font-semibold text-green-900">Prêmio</th>
+                <th className="px-4 py-3 text-left font-semibold text-green-900">Ganhador</th>
               </tr>
             </thead>
             <tbody>
@@ -75,7 +75,7 @@ export function StepRaffle({ participants, prizes, displayField }: StepRafflePro
 
       <div className="text-center">
         <p className="text-sm text-gray-500 mb-1">Prêmio {currentPrizeIndex + 1} de {prizes.length}</p>
-        <p className="text-2xl font-bold text-indigo-700">🏆 {currentPrize.name}</p>
+        <p className="text-2xl font-bold text-green-700">🏆 {currentPrize.name}</p>
         <p className="text-xs text-gray-400 mt-1">{remaining.length} participantes restantes</p>
       </div>
 
@@ -92,7 +92,7 @@ export function StepRaffle({ participants, prizes, displayField }: StepRafflePro
           <button
             onClick={handleSpin}
             disabled={spinning || remaining.length === 0}
-            className="px-8 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-bold text-lg shadow-lg hover:shadow-xl"
+            className="px-8 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-bold text-lg shadow-lg hover:shadow-xl"
           >
             {spinning ? "Sorteando..." : "🎲 Sortear!"}
           </button>

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import { LandingPage } from "@/components/LandingPage";
 import { Wizard } from "@/components/Wizard";
 import { StepImport } from "@/components/StepImport";
 import { StepSelectFields } from "@/components/StepSelectFields";
@@ -9,6 +11,7 @@ import { StepRaffle } from "@/components/StepRaffle";
 import type { Participant, Prize } from "@/lib/types";
 
 export default function Home() {
+  const [started, setStarted] = useState(false);
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [headers, setHeaders] = useState<string[]>([]);
   const [rawData, setRawData] = useState<Record<string, string>[]>([]);
@@ -40,12 +43,19 @@ export default function Home() {
     setStep(4);
   };
 
+  if (!started) {
+    return <LandingPage onStart={() => setStarted(true)} />;
+  }
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100">
+    <main className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <h1 className="text-3xl font-bold text-center mb-8 text-indigo-900">
-          🎯 Sorteio App
-        </h1>
+        <div className="flex items-center justify-center gap-3 mb-8">
+          <Image src="/devparana.svg" alt="DevParaná" width={48} height={48} />
+          <h1 className="text-3xl font-bold text-green-900">
+            Dev Paraná — Sorteio
+          </h1>
+        </div>
         <Wizard currentStep={step}>
           {step === 1 && <StepImport onDataLoaded={handleDataLoaded} />}
           {step === 2 && (
